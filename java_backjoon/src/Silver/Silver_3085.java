@@ -1,7 +1,8 @@
+package Silver;
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Silver_3085 {
     // 최대값
     static int max = 1;
     // n * n
@@ -50,9 +51,9 @@ public class Main {
         return false;
     }
     static void changeCandy(int i1, int j1, int i2, int j2) {
-            char temp = candy[i1][j1];
-            candy[i1][j1] = candy[i2][j2];
-            candy[i2][j2] = temp;
+        char temp = candy[i1][j1];
+        candy[i1][j1] = candy[i2][j2];
+        candy[i2][j2] = temp;
     }
     public static void arrCheck() {
 
@@ -63,7 +64,7 @@ public class Main {
                 // 이전 사탕과 동일한 경우 계속 먹는다
                 if(candy[i][j] == candy[i][j+1])
                     count ++;
-                // 이전과 다른 사탕인 경우 1로 초기화
+                    // 이전과 다른 사탕인 경우 1로 초기화
                 else
                     count = 1;
                 // 사탕 최대 개수 저장
