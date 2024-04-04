@@ -1,7 +1,8 @@
+package gold;
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Gold_1062_MakeSet {
     static List<String> words = new LinkedList<>();
     static int N;
     static int K;   // 가르칠 수 있는 알파벳 개수 K, 0 <= K <= 26
