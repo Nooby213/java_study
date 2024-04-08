@@ -1,14 +1,14 @@
+package Silver;
+
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Silver_5568 {
     static int n;
     static int k;
     static Set<String> permutations;
     static String[] cards;
     static boolean[] visited;
-    static boolean[] startPoint = new boolean[100];
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         n = Integer.parseInt(br.readLine());
