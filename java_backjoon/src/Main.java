@@ -2,27 +2,16 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int N = Integer.parseInt(br.readLine());
+        String input;
 
-        TreeSet<String> in = new TreeSet<>();
-
-        for (int i = 0; i < N; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
-            String name = st.nextToken();
-            String status = st.nextToken();
-
-            if (status.equals("enter")) {
-                in.add(name);
-            }
-            else {
-                in.remove(name);
-            }
+        // 파일의 끝까지 입력을 받음
+        while (br.ready()) {
+            // 입력 처리
+            System.out.println("입력: " + br.readLine());
         }
 
-        for (String name : in.descendingSet()) {
-            System.out.println(name);
-        }
+        br.close(); // 입력 스트림 닫기
     }
 }
