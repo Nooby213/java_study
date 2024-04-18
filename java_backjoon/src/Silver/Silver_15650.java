@@ -1,7 +1,7 @@
+package Silver;
 import java.util.*;
-import java.io.*;
 
-public class Main {
+public class Silver_15650 {
     static int n;
     static int m;
 
