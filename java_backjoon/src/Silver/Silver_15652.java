@@ -1,7 +1,7 @@
+package Silver;
 import java.util.*;
-import java.io.*;
 
-public class Main {
+public class Silver_15652 {
     static int n;
     static int m;
     static StringBuilder total = new StringBuilder();

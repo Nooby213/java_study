@@ -1,7 +1,8 @@
-import java.util.*;
-import java.io.*;
+package Silver;
 
-public class Main {
+import java.util.*;
+
+public class Silver_15651 {
     static int n;
     static int m;
     static StringBuilder total = new StringBuilder();
@@ -9,17 +10,17 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         n = sc.nextInt();
         m = sc.nextInt();
-        comb(0, 1, new StringBuilder());
+        comb(0, new StringBuilder());
         System.out.println(total);
     }
 
-    static void comb(int cnt, int i, StringBuilder sb) {
+    static void comb(int cnt, StringBuilder sb) {
         if (cnt == m) {
             total.append(sb).append('\n');
             return;
         }
-        for (int j = i; j <= n; j++) {
-            comb(cnt + 1, j, new StringBuilder(sb).append(j).append(" "));
+        for (int j = 1; j <= n; j++) {
+            comb(cnt + 1, new StringBuilder(sb).append(j).append(" "));
         }
     }
 }
