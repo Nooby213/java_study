@@ -1,7 +1,7 @@
+package gold;
 import java.util.*;
-import java.io.*;
 
-public class Main {
+public class Gold_9663 {
     static int n;
     static int total = 0;
     static int[] col;
