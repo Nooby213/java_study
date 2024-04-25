@@ -1,7 +1,8 @@
+package Silver;
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Silver_14888 {
     static int[] arr;
     static boolean[] used;
     static int[] operator = new int[4];
