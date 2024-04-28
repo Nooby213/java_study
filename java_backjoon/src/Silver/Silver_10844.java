@@ -1,7 +1,7 @@
+package Silver;
 import java.util.*;
-import java.io.*;
 
-public class Main {
+public class Silver_10844 {
     static Long sum = 0L;
     static int n;
     static int mod = 1000000000;
