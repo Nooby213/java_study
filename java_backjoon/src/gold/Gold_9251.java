@@ -1,7 +1,7 @@
-import java.util.Arrays;
+package gold;
 import java.util.Scanner;
 
-public class Main {
+public class Gold_9251 {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         String word1 = scanner.nextLine();
