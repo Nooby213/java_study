@@ -1,25 +1,30 @@
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        String word1 = scanner.nextLine();
-        String word2 = scanner.nextLine();
-        int word1_len = word1.length();
-        int word2_len = word2.length();
-        int[][] idx = new int[word1_len + 1][word2_len + 1];
-
-        for (int i = 1; i <= word1_len; i++) {
-            for (int j = 1; j <= word2_len; j++) {
-                if (word1.charAt(i - 1) == word2.charAt(j - 1)) {
-                    // 자기보다 앞에 있는 문자열의 합과 더 해줘야함
-                    idx[i][j] = idx[i - 1][j - 1] + 1;
-                } else {
-                    idx[i][j] = Math.max(idx[i - 1][j], idx[i][j - 1]);
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+        int[] numbers = new int[n];
+        int[] sum = new int[n];
+        int cnt = 1;
+        st = new StringTokenizer(br.readLine());
+        numbers[0] = Integer.parseInt(st.nextToken());
+        sum[0] = numbers[0];
+        for (int i = 1; i < n; i++) {
+            numbers[i] = Integer.parseInt(st.nextToken());
+            sum[i] = numbers[i] + sum[i - 1];
+        }
+        for (int i = 1; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                int tempSum = sum[j] - sum[j - i];
+                if (tempSum % m == 0) {
+                    cnt++;
                 }
             }
         }
-        System.out.println(idx[word1_len][word2_len]);
+        System.out.println(cnt);
     }
 }
