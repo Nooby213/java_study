@@ -13,10 +13,11 @@ public class Silver_1010 {
             st = new StringTokenizer(br.readLine());
             n = Integer.parseInt(st.nextToken());
             m = Integer.parseInt(st.nextToken());
-            BigInteger numerator = factorial(m);
-            BigInteger denominator1 = factorial(m - n);
-            BigInteger denominator2 = factorial(n);
-            BigInteger result = numerator.divide(denominator1.multiply(denominator2));
+            // mCn
+            BigInteger all = factorial(m);
+            BigInteger divide1 = factorial(m - n);
+            BigInteger divide2 = factorial(n);
+            BigInteger result = all.divide(divide1.multiply(divide2));
             System.out.println(result);
         }
     }

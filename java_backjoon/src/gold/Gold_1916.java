@@ -1,8 +1,10 @@
-import java.io.*;
-import java.util.*;
+package gold;
 
-public class Test {
-    public static void main(String[] args) throws Exception{
+import java.util.*;
+import java.io.*;
+
+public class Gold_1916 {
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
         int n = Integer.parseInt(br.readLine());
@@ -22,16 +24,16 @@ public class Test {
             bus.get(s).add(new Bus(e, c));
         }
 
-        System.out.println(bus);
         st = new StringTokenizer(br.readLine());
         int start = Integer.parseInt(st.nextToken());
         int end = Integer.parseInt(st.nextToken());
+
 
         int[] cost = new int[n + 1];
         Arrays.fill(cost, Integer.MAX_VALUE);
         cost[start] = 0;
 
-        PriorityQueue<Bus> pq = new PriorityQueue<>(Comparator.comparing(b -> b.cost));
+        PriorityQueue<Bus> pq = new PriorityQueue<>(Comparator.comparingInt(b -> b.cost));
         pq.add(new Bus(start, 0));
 
         while (!pq.isEmpty()) {
@@ -39,23 +41,20 @@ public class Test {
             int nowEnd = now.end;
             int nowCost = now.cost;
 
-            if (nowCost > cost[nowEnd]) {
-                continue;
-            }
+            if (nowCost > cost[nowEnd]) continue;
 
             for (Bus next : bus.get(nowEnd)) {
                 int nextEnd = next.end;
-                int nextCost = nowCost + next.cost;
+                int newCost = nowCost + next.cost;
 
-                if (nextCost < cost[nextEnd]) {
-                    cost[nextEnd] = nextCost;
-                    pq.add(new Bus(nextEnd, nextCost));
+                if (newCost < cost[nextEnd]) {
+                    cost[nextEnd] = newCost;
+                    pq.add(new Bus(nextEnd, newCost));
                 }
             }
         }
 
         System.out.println(cost[end]);
-
     }
 
     static class Bus {
