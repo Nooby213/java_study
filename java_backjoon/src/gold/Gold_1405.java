@@ -1,7 +1,9 @@
+package gold;
+
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Gold_1405 {
     static char[] direction;
     static int[] dy = new int[]{0, 0, -1, 1};
     static int[] dx = new int[]{-1, 1, 0, 0};
@@ -71,3 +73,4 @@ public class Main {
         }
     }
 }
+
