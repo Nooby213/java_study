@@ -1,7 +1,9 @@
+package gold;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Gold_2170 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
@@ -40,3 +42,4 @@ public class Main {
         System.out.println(sum);
     }
 }
+
