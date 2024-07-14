@@ -38,5 +38,6 @@ public class Main {
         sum += end - start;
 
         System.out.println(sum);
+
     }
 }
