@@ -2,41 +2,26 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int n;
-    static int[][] arr;
-    static List<List<List<Integer>>> fish;
-    static int shark = 2;
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
+        int min = 100001;
+        int[] arr = new int[2 * k + 1];
+        Arrays.fill(arr, Integer.MAX_VALUE);
+        arr[n] = 0;
+        for (int i = n; i <= k; i++) {
+            if (i == 0) {
+                arr[i + 1] = 1;
+            } else {
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
-        n = Integer.parseInt(br.readLine());
-        arr = new int[n][n];
+                arr[i - 1] = Math.min(arr[i - 1], arr[i] + 1);
+                arr[i + 1] = Math.min(arr[i + 1], arr[i] + 1);
+                arr[i * 2] = Math.min(Math.min(arr[i], arr[i - 1] + 1), arr[i + 1] + 1);
 
-        fish = new ArrayList<>();
-        for (int i = 0; i < 7; i++) {
-            fish.add(new ArrayList<>());
-        }
-
-        for (int i = 0; i < n; i++) {
-            st = new StringTokenizer(br.readLine());
-            for (int j = 0; j < n; j++) {
-                int temp = Integer.parseInt(st.nextToken());
-                arr[i][j] = temp;
-                if (temp != 0 && temp != 9) {
-                    fish.get(temp).add(new ArrayList<>(Arrays.asList(i, j)));
-                }
             }
         }
-
-        System.out.println(fish);
-
-        while (true) {
-            int dis = Integer.MAX_VALUE;
-            for (int i = 0; i < ; i++) {
-                
-            }
-        }
-
+        System.out.println(Arrays.toString(arr));
+        System.out.println(arr[k]);
     }
 }
