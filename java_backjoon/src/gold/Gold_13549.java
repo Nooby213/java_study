@@ -1,7 +1,8 @@
-import java.io.*;
+package gold;
+
 import java.util.*;
 
-public class Main {
+public class Gold_13549 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -38,3 +39,4 @@ public class Main {
         }
     }
 }
+
