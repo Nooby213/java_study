@@ -2,39 +2,48 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-        int n = sc.nextInt();
-        int k = sc.nextInt();
-        int[] arr = new int[100001];
-        Arrays.fill(arr, Integer.MAX_VALUE);
-        arr[n] = 0;
+    static int n;
+    static int m;
+    static long[][] dp;
+    static int[] name;
 
-        Deque<Integer> q = new LinkedList<>();
-        q.add(n);
-        while (!q.isEmpty()) {
-            int now = q.pollFirst();
-
-            // 동생 찾으면 값 출력 후 리턴
-            if (now == k) {
-                System.out.println(arr[now]);
-                return;
-            }
-
-            if (now - 1 >= 0 && arr[now - 1] > arr[now] + 1) {
-                arr[now - 1] = arr[now] + 1;
-                q.addLast(now - 1);
-            }
-
-            if (now + 1 < 100001 && arr[now + 1] > arr[now] + 1) {
-                arr[now + 1] = arr[now] + 1;
-                q.addLast(now + 1);
-            }
-
-            if (now * 2 < 100001 && arr[now * 2] > arr[now]) {
-                arr[now * 2] = arr[now];
-                q.addFirst(now * 2);
-            }
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        name = new int[n];
+        dp = new long[n][m];
+        for (int i = 0; i < n; i++) {
+            name[i] = Integer.parseInt(br.readLine());
         }
+        for (int i = 0; i < n; i++) {
+            Arrays.fill(dp[i], Integer.MAX_VALUE);
+        }
+
+        System.out.println(deathNote(0, 0));
+    }
+
+    static long deathNote(int i, int j) {
+        // 사람 이름 다쓰면 뒤에 칸 안 씀
+        if (i == n) {
+            return 0;
+        }
+
+        // 온 적 있으면
+        if (dp[i][j] != Integer.MAX_VALUE) {
+            return dp[i][j];
+        }
+
+        // 지금 줄에 추가
+        if (j + name[i] < m) {
+            dp[i][j] = Math.min(dp[i][j], deathNote(i + 1, j + name[i]));
+        }
+
+        // 다음 줄에 추가
+        dp[i][j] = (long) Math.min(dp[i][j], Math.pow(m - j + 1, 2) + deathNote(i, 0));
+
+
+        return dp[i][j];
     }
 }
