@@ -1,56 +1,42 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-    static int n;
-    static int m;
-    static long[][] dp;
-    static int[] name;
-
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        int n = Integer.parseInt(br.readLine());
         StringTokenizer st = new StringTokenizer(br.readLine());
-        n = Integer.parseInt(st.nextToken());
-        m = Integer.parseInt(st.nextToken());
-        name = new int[n];
-        dp = new long[n][m + 1];
+        int[] arr = new int[n];
         for (int i = 0; i < n; i++) {
-            name[i] = Integer.parseInt(br.readLine());
+            arr[i] = Integer.parseInt(st.nextToken());
         }
+        Arrays.sort(arr);
+        if (arr[0] >= 0) {
+            System.out.println(arr[0] + " " + arr[1]);
+
+        }
+        if (arr[n - 1] <= 0) {
+            System.out.println(arr[n - 2] + " " + arr[n - 2]);
+
+        }
+
+
+        int start = 0;
+        int end = n - 1;
+        int min = Integer.MAX_VALUE;
         for (int i = 0; i < n; i++) {
-            Arrays.fill(dp[i], Integer.MAX_VALUE);
-        }
-
-        System.out.println(deathNote(0, 0));
-    }
-
-    static long deathNote(int i, int j) {
-        // 사람 이름 다쓰면 뒤에 칸 안 씀
-        if (i == n) {
-            return 0;
-        }
-
-        // 온 적 있으면
-        if (dp[i][j] != Integer.MAX_VALUE) {
-            return dp[i][j];
-        }
-
-        // 현재 줄에 이름을 추가할 수 있는 경우
-        if (j + name[i] <= m) {
-            if (j + name[i] == m) { // 줄을 정확히 채우는 경우
-                dp[i][j] = Math.min(dp[i][j], deathNote(i + 1, 0));
-            } else { // 현재 줄에 이름을 추가하는 경우
-                dp[i][j] = Math.min(dp[i][j], deathNote(i + 1, j + name[i] + 1));
+            int s = arr[i];
+            for (int j = n - 1; j > i ; j--) {
+                int e = arr[j];
+                if (min > Math.abs(s + e)) {
+                    start = s;
+                    end = e;
+                    min = Math.abs(s + e);
+                } else {
+                    break;
+                }
             }
         }
-
-        // 다음 줄에 이름을 추가하는 경우
-        if (j != 0) { // 현재 줄이 비어있지 않다면 남은 칸의 비용을 계산
-            dp[i][j] = Math.min(dp[i][j], (long) Math.pow(m - j + 1, 2) + deathNote(i, 0));
-        } else { // 현재 줄이 비어있다면 이름을 추가
-            dp[i][j] = Math.min(dp[i][j], deathNote(i + 1, name[i] + 1));
-        }
-
-        return dp[i][j];
+        System.out.println(start + " " + end);
     }
 }
