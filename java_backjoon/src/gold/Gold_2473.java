@@ -1,7 +1,9 @@
-import java.util.*;
-import java.io.*;
+package gold;
 
-public class Main {
+import java.io.*;
+import java.util.*;
+
+public class Gold_2473 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -51,3 +53,4 @@ public class Main {
         System.out.println(arr[minLeft] + " " + arr[minMid] + " " + arr[minRight]);
     }
 }
+
