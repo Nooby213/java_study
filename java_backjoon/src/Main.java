@@ -2,52 +2,37 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-        int n = Integer.parseInt(br.readLine());
-
-        int[] arr = new int[n];
         StringTokenizer st = new StringTokenizer(br.readLine());
+        int n = Integer.parseInt(st.nextToken());
+        int m = Integer.parseInt(st.nextToken());
+
+        int[] board = new int[101];
         for (int i = 0; i < n; i++) {
-            arr[i] = Integer.parseInt(st.nextToken());
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            board[s] = 100 + e;
         }
+        for (int i = 0; i < m; i++) {
+            st = new StringTokenizer(br.readLine());
+            int s = Integer.parseInt(st.nextToken());
+            int e = Integer.parseInt(st.nextToken());
+            board[e] = -(e - s);
+        }
+        Deque<int[]> q = new LinkedList<>();
+        q.add(new int[]{0, 0});
+        while (true) {
+            int[] now = q.pollLast();
+            int pos = now[0];
+            int cnt = now[1];
+            for (int i = 1; i <= 6; i++) {
+                int next = pos + i;
+                if (next <= 100 && board[next] != 0) {
 
-        Arrays.sort(arr);
-
-        long minSum = 3000000001L;
-        int minLeft = 0;
-        int minMid = 0;
-        int minRight = 0;
-
-        for (int i = 0; i < n - 2; i++) {
-            int left = i;
-            int mid = i + 1;
-            int right = n - 1;
-
-            while (mid < right) {
-                long sum = (long) arr[left] + arr[mid] + arr[right];
-
-                if (Math.abs(sum) < Math.abs(minSum)) {
-                    minSum = sum;
-                    minLeft = left;
-                    minMid = mid;
-                    minRight = right;
-                }
-
-                if (sum > 0) {
-                    right--;
-                }
-                else if (sum == 0) {
-                    System.out.println(arr[minLeft] + " " + arr[minMid] + " " + arr[minRight]);
-                    return;
-                }
-                else {
-                    mid++;
                 }
             }
         }
-
-        System.out.println(arr[minLeft] + " " + arr[minMid] + " " + arr[minRight]);
     }
 }
