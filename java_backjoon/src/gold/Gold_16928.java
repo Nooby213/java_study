@@ -1,7 +1,9 @@
+package gold;
+
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Gold_16928 {
     public static void main(String[] args) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
@@ -50,3 +52,4 @@ public class Main {
         }
     }
 }
+

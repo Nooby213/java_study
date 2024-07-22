@@ -9,7 +9,7 @@ public class Gold_7432 {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
         Node root = new Node("root");
-
+        
         for (int i = 0; i < n; i++) {
             String[] tempDir = br.readLine().split("\\\\");
             Node now = root;
@@ -19,7 +19,8 @@ public class Gold_7432 {
                 now = now.children.get(dir);
             }
         }
-
+        String result = root.toString();
+        System.out.println(result);
         makeDir(root, 0);
         System.out.println(sb);
     }
@@ -30,6 +31,11 @@ public class Gold_7432 {
 
         public Node(String name) {
             this.name = name;
+        }
+
+        @Override
+        public String toString() {
+            return this.name + this.children;
         }
     }
 
