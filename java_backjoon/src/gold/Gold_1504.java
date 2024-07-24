@@ -1,7 +1,8 @@
+package gold;
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Gold_1504 {
     static int n;
     static List<List<Node>> node;
 
@@ -83,3 +84,4 @@ public class Main {
         return visited[to];
     }
 }
+
