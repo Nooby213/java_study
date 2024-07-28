@@ -1,47 +1,50 @@
-import java.util.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.StringTokenizer;
 
 public class Test {
-    static StringBuilder sb = new StringBuilder();
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        Node root = new Node("root");
+        StringTokenizer st;
 
-        for (int i = 0; i < n; i++) {
-            String[] tempDir = br.readLine().split("\\\\");
-            Node now = root;
+        int T = Integer.parseInt(br.readLine());
 
-            for (String dir : tempDir) {
-                now.children.putIfAbsent(dir, new Node(dir));
-                now = now.children.get(dir);
+        for (int i = 0; i < T; i++) {
+            int n = Integer.parseInt(br.readLine());
+            int[] parent = new int[n+1];
+
+            for (int j = 0; j < n - 1; j++) {
+                st = new StringTokenizer(br.readLine());
+
+                int a = Integer.parseInt(st.nextToken());
+                int b = Integer.parseInt(st.nextToken());
+
+                parent[b] = a;
             }
-        }
 
-        makeDir(root, 0);
-        System.out.println(sb);
-    }
+            st = new StringTokenizer(br.readLine());
+            int x = Integer.parseInt(st.nextToken());
+            int y = Integer.parseInt(st.nextToken());
 
-    static class Node {
-        String name;
-        Map<String, Node> children = new TreeMap<>();
+            List<Integer> par_x = new ArrayList<>();
+            par_x.add(0); par_x.add(x);
 
-        public Node(String name) {
-            this.name = name;
-        }
-    }
+            List<Integer> par_y = new ArrayList<>();
+            par_y.add(0); par_y.add(y);
 
-    static void makeDir(Node node, int d) {
-        if (d > 1) {
-            for (int i = 0; i < d - 1; i++) {
-                sb.append(' ');
+            while (parent[x] != 0) {
+                par_x.add(parent[x]);
+                x = parent[x];
             }
-        }
-        if (d > 0) {
-            sb.append(node.name).append('\n');
-        }
-        for (Node c : node.children.values()) {
-            makeDir(c, d + 1);
+
+            while (parent[y] != 0) {
+                par_y.add(parent[y]);
+                y = parent[y];
+            }
+
         }
     }
 }
