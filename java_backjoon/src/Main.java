@@ -1,71 +1,33 @@
-import java.awt.image.VolatileImage;
 import java.util.*;
 import java.io.*;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int n = Integer.parseInt(st.nextToken());
-        int m = Integer.parseInt(st.nextToken());
-        int k = Integer.parseInt(st.nextToken());
-        List<List<List<Fireball>>> fireballs = new ArrayList<>();
+    static int[] sis = new int[500001];
+    static int[] subin = new int[500001];
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = sc.nextInt();
+        int k = sc.nextInt();
 
-        for (int i = 0; i < n; i++) {
-            fireballs.add(new ArrayList<>());
-            for (int j = 0; j < n; j++) {
-                fireballs.get(i).add(new LinkedList<>());
-            }
+        int t = 1;
+        while (k < 500001) {
+            sis[k] = t;
+            k += t;
+            t++;
         }
-        System.out.println(fireballs);
-        for (int i = 0; i < m; i++) {
-            st = new StringTokenizer(br.readLine());
-            int r = Integer.parseInt(st.nextToken());
-            int c = Integer.parseInt(st.nextToken());
-            int me = Integer.parseInt(st.nextToken());
-            int s = Integer.parseInt(st.nextToken());
-            int d = Integer.parseInt(st.nextToken());
-            fireballs.get(r-1).get(c-1).add(new Fireball(me, s, d));
-        }
-
-        for (int i = 0; i < k; i++) {
-
-        }
-        System.out.println(fireballs);
+        System.out.println(Arrays.toString(sis));
     }
 
-    static class Fireball {
-        int measure;
-        int vel;
-        int dir;
-        public Fireball(int measure, int vel, int dir) {
-            this.measure = measure;
-            this.vel = vel;
-            this.dir = dir;
+    static void move(int now, int time) {
+        if (now < 0) {
+            return;
         }
-
-        @Override
-        public String toString() {
-            return measure + " " + vel + " " + dir;
+        if (now > 500000) {
+            return;
         }
-    }
-
-    static void sumFireball(List<Fireball> fbs, int y, int x) {
-        int sum = 0;
-        int v = 0;
-        boolean sameD = true;
-        int d = fbs.get(0).dir % 2;
-        for (int i = 0; i < fbs.size(); i++) {
-            Fireball temp = fbs.get(i);
-            sum += temp.measure;
-            v += temp.vel;
-            if (d != temp.dir % 2) {
-                sameD = false;
-            }
+        if (subin[now] < time) {
+            return;
         }
-        if (sum >= 5) {
-
-        }
+        subin
     }
 }
-

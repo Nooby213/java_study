@@ -7,44 +7,9 @@ import java.util.StringTokenizer;
 
 public class Test {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+        List<int[]>[][] list = new ArrayList[3][3];
+        list[1][2] = new ArrayList<>();
+        list[1][2].add(new int[]{3});
 
-        int T = Integer.parseInt(br.readLine());
-
-        for (int i = 0; i < T; i++) {
-            int n = Integer.parseInt(br.readLine());
-            int[] parent = new int[n+1];
-
-            for (int j = 0; j < n - 1; j++) {
-                st = new StringTokenizer(br.readLine());
-
-                int a = Integer.parseInt(st.nextToken());
-                int b = Integer.parseInt(st.nextToken());
-
-                parent[b] = a;
-            }
-
-            st = new StringTokenizer(br.readLine());
-            int x = Integer.parseInt(st.nextToken());
-            int y = Integer.parseInt(st.nextToken());
-
-            List<Integer> par_x = new ArrayList<>();
-            par_x.add(0); par_x.add(x);
-
-            List<Integer> par_y = new ArrayList<>();
-            par_y.add(0); par_y.add(y);
-
-            while (parent[x] != 0) {
-                par_x.add(parent[x]);
-                x = parent[x];
-            }
-
-            while (parent[y] != 0) {
-                par_y.add(parent[y]);
-                y = parent[y];
-            }
-
-        }
     }
 }
