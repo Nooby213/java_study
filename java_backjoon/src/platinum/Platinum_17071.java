@@ -1,6 +1,8 @@
+package platinum;
+
 import java.util.*;
 
-public class Main {
+public class Platinum_17071 {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -36,3 +38,4 @@ public class Main {
         System.out.println(-1);
     }
 }
+
