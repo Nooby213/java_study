@@ -10,7 +10,9 @@ class UserSolution {
 
     static String findAlliance(String monarch) {
         if (!alliance.get(monarch).equals(monarch)) {
-            alliance.put(monarch, findAlliance(alliance.get(monarch)));
+            String root = findAlliance(alliance.get(monarch));
+            enemy.put(monarch, enemy.get(root));
+            alliance.put(monarch, root);
         }
         return alliance.get(monarch);
     }
@@ -25,8 +27,10 @@ class UserSolution {
     }
 
     static void makeEnemy(String monarchA, String monarchB) {
-        enemy.put(monarchA, monarchB);
-        enemy.put(monarchB, monarchA);
+        String rootA = findAlliance(monarchA);
+        String rootB = findAlliance(monarchB);
+        enemy.put(rootA, rootB);
+        enemy.put(rootB, rootA);
     }
 
     void init(int N, int mSoldier[][], char mMonarch[][][]) {
@@ -51,6 +55,11 @@ class UserSolution {
     int ally(char mMonarchA[], char mMonarchB[]) {
         String rootA = findAlliance(String.valueOf(mMonarchA));
         String rootB = findAlliance(String.valueOf(mMonarchB));
+        if (rootA.equals(rootB)) {
+            return -1;
+        } else if () {
+
+        }
         makeAlliance(rootA, rootB);
         return 1;
     }
