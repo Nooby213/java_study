@@ -1,3 +1,5 @@
+package b형.삼국지;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +17,7 @@ class UserSolutionAnswer {
     }
 
     int inputN;
-    int[] parent = new int[10000];
+    int[] parent = new int[8625];
     List<Integer>[] UnionList = new List[625];
     List<Integer>[] EnemyList = new List[625];
     SNationInfo[] Nation = new SNationInfo[8625];

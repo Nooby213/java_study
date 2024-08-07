@@ -1,3 +1,5 @@
+package b형.삼국지;
+
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Scanner;
@@ -92,7 +94,7 @@ class Solution {
 
     public static void main(String[] args) throws Exception {
         int T, MARK;
-        System.setIn(new java.io.FileInputStream("./src/sample_input.txt"));
+        System.setIn(new java.io.FileInputStream("./src/b형/삼국지/sample_input.txt"));
         sc = new Scanner(System.in);
 
         T = sc.nextInt();

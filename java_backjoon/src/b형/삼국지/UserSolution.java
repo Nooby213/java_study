@@ -1,3 +1,5 @@
+package b형.삼국지;
+
 import java.util.*;
 
 class UserSolution {
