@@ -86,5 +86,11 @@ class UserSolution {
                     return p1.id - p2.id;
                 }
             });
+
+        public void trade(Player good, Player bad) {
+            if (good.ability > best.getLast().ability) {
+                worst.
+            }
+        }
     }
 }
