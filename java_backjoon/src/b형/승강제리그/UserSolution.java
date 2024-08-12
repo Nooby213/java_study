@@ -89,7 +89,7 @@ class UserSolution {
 
         public void trade(Player good, Player bad) {
             if (good.ability > best.getLast().ability) {
-                worst.
+//                worst.
             }
         }
     }
