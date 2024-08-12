@@ -8,13 +8,14 @@ import java.util.TreeSet;
 class UserSolution {
     static int N;
     static int L;
+    static List<League> leagues;
 
     void init(int N, int L, int mAbility[]) {
         this.N = N;
         this.L = L;
         int idx = 0;
         int players = N / L;
-        List<League> leagues = new ArrayList<>();
+        leagues = new ArrayList<>();
         for (int i = 0; i < L; i++) {
             leagues.add(new League());
         }
@@ -38,15 +39,26 @@ class UserSolution {
                 leagues.get(i).worst.add(temp.get(j));
             }
         }
-//        for (League league : leagues) {
-//            System.out.println(league.best);
-//            System.out.println(league.worst);
-//        }
+        for (League league : leagues) {
+            System.out.println(league.best);
+            System.out.println(league.worst);
+        }
     }
 
     int move() {
-
-        return 0;
+        int sum = 0;
+        List<Player> tp = new ArrayList<>();
+        tp.add(leagues.get(0).worst.pollFirst());
+        for (int i = 1; i < L - 2; i++) {
+            tp.add(leagues.get(i).best.pollFirst());
+            tp.add(leagues.get(i).worst.pollFirst());
+        }
+        tp.add(leagues.get(L - 1).best.pollFirst());
+        for (int i = 0; i < L; i++) {
+            sum += tp.get(i).ability;
+        }
+        System.out.println(sum);
+        return sum;
     }
 
     int trade() {
@@ -86,6 +98,18 @@ class UserSolution {
                     return p1.id - p2.id;
                 }
             });
+
+        void addPlayer(Player player) {
+            if (best.getLast().ability > player.ability) {
+                worst.add(player);
+            } else if (best.getLast().ability == player.ability) {
+                if (best.getLast().id < player.id) {
+                    worst.add(player);
+                } else {
+
+                }
+            }
+        }
 
         public void trade(Player good, Player bad) {
             if (good.ability > best.getLast().ability) {
