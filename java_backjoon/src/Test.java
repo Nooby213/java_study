@@ -5,11 +5,9 @@ import java.util.TreeSet;
 
 public class Test {
     public static void main (String[] args) {
-        TreeSet<Integer> treeSet = new TreeSet<>();
-        for (int i = 0; i < 5; i++) {
-            treeSet.add(i);
+        for (int i = 0; i < 100; i++) {
+            System.out.println(i);
+            i = 100;
         }
-        System.out.println(treeSet);
-        treeSet.getLast();
     }
 }
