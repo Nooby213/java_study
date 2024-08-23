@@ -1,7 +1,9 @@
+package gold;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Gold_2042 {
     static int n, m, k;
     static long[] arr;
     static long[] tree;
@@ -15,7 +17,7 @@ public class Main {
         k = Integer.parseInt(st.nextToken());
 
         arr = new long[n + 1];
-        tree = new long[4 * n];
+        tree = new long[2 * n];
 
         for (int i = 1; i <= n; i++) {
             arr[i] = Long.parseLong(br.readLine());
