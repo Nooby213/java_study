@@ -17,7 +17,7 @@ public class Gold_2042 {
         k = Integer.parseInt(st.nextToken());
 
         arr = new long[n + 1];
-        tree = new long[2 * n];
+        tree = new long[4 * n];
 
         for (int i = 1; i <= n; i++) {
             arr[i] = Long.parseLong(br.readLine());
@@ -25,7 +25,6 @@ public class Gold_2042 {
 
         // 세그먼트 트리 초기화
         init(1, n, 1);
-        System.out.println(Arrays.toString(tree));
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < m + k; i++) {
@@ -42,6 +41,7 @@ public class Gold_2042 {
                 sb.append(query(1, n, 1, b, (int)c)).append("\n");
             }
         }
+
         System.out.println(sb);
     }
 
