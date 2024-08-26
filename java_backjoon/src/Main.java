@@ -1,49 +1,51 @@
-import java.util.*;
 import java.io.*;
+import java.util.*;
 
 public class Main {
+    static int count = -1;
+    static int n;
+    static int[] visited = new int[10];
+    static StringBuilder sb = new StringBuilder();
 
-    public static void main(String[] args) throws Exception {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        char[] str = br.readLine().toCharArray();
-        char[] bomb = br.readLine().toCharArray();
-        int strSize = str.length;
-        int bombSize = bomb.length;
-        char lastBomb = bomb[bombSize - 1];
-
-        Stack<Character> stack = new Stack<>();
-
-        for (int i = 0; i < strSize; i++) {
-            char temp = str[i];
-            stack.push(temp);
-
-            if (temp == lastBomb) {
-                boolean isBomb = true;
-                int stackSize = stack.size();
-                if (stackSize >= bombSize) {
-                    for (int j = 0; j < bombSize; j++) {
-                        if (stack.get(stackSize - bombSize + j) != bomb[j]) {
-                            isBomb = false;
-                            break;
-                        }
-                    }
-                    if (isBomb) {
-                        for (int j = 0; j < bombSize; j++) {
-                            stack.pop();
-                        }
-                    }
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        n = sc.nextInt();
+        for (int i = 1; i < 10; i++) {
+            for (int j = 0; j < 10; j++) {
+                visited[j] = 1;
+                make(i, j, 1);
+                visited[j] = 0;
+                if (count >= n) {
+                    return;
                 }
             }
         }
+        System.out.println(-1);
+    }
 
-        if (stack.isEmpty()) {
-            System.out.println("FRULA");
-        } else {
-            StringBuilder sb = new StringBuilder();
-            for (Character c : stack) {
-                sb.append(c);
+    static void make(int len, int num, int cnt) {
+        if (count >= n) {
+            return;
+        }
+        if (len == cnt) {
+            count++;
+            if (count == n) {
+                for (int k = 9; k >= 0; k--) {
+                    if (visited[k] == 1) {
+                        sb.append(k);
+                    }
+                }
+                System.out.println(sb);
             }
-            System.out.println(sb);
+            return;
+        }
+
+        for (int i = 0; i < num; i++) {
+            if (visited[i] == 0) {
+                visited[i] = 1;
+                make(len, i, cnt + 1);
+                visited[i] = 0;
+            }
         }
     }
 }
