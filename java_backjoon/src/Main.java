@@ -5,6 +5,7 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
+<<<<<<< HEAD
         StringTokenizer st = new StringTokenizer(br.readLine());
 
         List<Integer> arr = new ArrayList<>();
@@ -37,5 +38,19 @@ public class Main {
             }
         }
         arr.set(end, now);
+=======
+        boolean[] weight = new boolean[n * 500 + 1];
+        List<Integer> choo = new ArrayList<>();
+        int[] visited = new int[501];
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        for (int i = 0; i < n; i++) {
+            int w = Integer.parseInt(st.nextToken());
+            visited[w]++;
+            choo.add(w * visited[w]);
+        }
+        System.out.println(choo);
+        int m = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+>>>>>>> 76699622f9b260183f479a58d6b07ea95a5e4a04
     }
 }
