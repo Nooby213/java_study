@@ -1,7 +1,8 @@
+package gold;
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Gold_1700 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
