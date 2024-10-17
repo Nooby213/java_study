@@ -1,12 +1,10 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.TreeSet;
 
 public class Test {
     public static void main (String[] args) {
-        // UUID 생성 후 숫자로 변환
-        String uuidNumeric = UUID.randomUUID().toString().replaceAll("[^0-9]", "");
-
-        // 8자리 숫자 추출 (앞에서 8자리를 자르고, 4자리-4자리로 나누기)
-        String aa = uuidNumeric.substring(0, 4) + "-" + uuidNumeric.substring(4, 8);
-        System.out.println(aa);
+        System.out.println(10e9);
     }
 }
