@@ -1,7 +1,8 @@
-import java.util.*;
+package gold;
+
 import java.io.*;
 
-public class Main {
+public class Gold_9207 {
     static int[] di = new int[]{-1, 1, 0, 0};
     static int[] dj = new int[]{0, 0, -1, 1};
     static int cnt;
@@ -33,7 +34,7 @@ public class Main {
                 }
             }
             sb.append(min + " " + cnt + "\n");
-            br.readLine();
+            br.readLine(); // 다음 보드 입력 받기 전 빈 줄 처리
         }
         System.out.println(sb);
     }
