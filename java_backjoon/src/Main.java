@@ -2,75 +2,95 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static int[] di = new int[]{-1, 1, 0, 0};
-    static int[] dj = new int[]{0, 0, -1, 1};
-    static int cnt;
-    static int pin;
-    static int min;
-
+    static int r;
+    static int c;
+    static int n;
+    static char[][] mine;
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        r = Integer.parseInt(st.nextToken());
+        c = Integer.parseInt(st.nextToken());
+        mine = new char[r][c];
+        char cnt = '0';
+        for (int i = 0; i < r; i++) {
+            mine[i] = br.readLine().toCharArray();
+            for (int j = 0; j < c; j++) {
+                if (mine[i][j] == 'x') {
+                    cnt++;
+                    mine[i][j] = cnt;
+                    j++;
+                    while (range(i, j) && mine[i][j] == 'x') {
+                        mine[i][j] = cnt;
+                        j++;
+                    }
+                }
+            }
+        }
+        n = Integer.parseInt(br.readLine());
+        st = new StringTokenizer(br.readLine());
+        for (int i = 1; i <= n; i++) {
+            int row = Integer.parseInt(st.nextToken()) - 1;
+            if (i % 2 == 1) {
+                for (int j = 0; j < c; j++) {
+                    if (mine[row][j] != '.') {
+                        mine[row][j] = '.';
+                        break;
+                    }
+                }
+            } else {
+                for (int j = c - 1; j >= 0; j--) {
+                    if (mine[row][j] != '.') {
+                        mine[row][j] = '.';
+                        break;
+                    }
+                }
+            }
+            down();
+        }
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            cnt = Integer.MAX_VALUE;
-            pin = 0;
-            char[][] board = new char[5][9];
-            for (int j = 0; j < 5; j++) {
-                board[j] = br.readLine().toCharArray();
-                for (int k = 0; k < 9; k++) {
-                    if (board[j][k] == 'o') {
-                        pin++;
-                    }
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+                if (mine[i][j] != '.') {
+                    sb.append("x");
+                } else {
+                    sb.append('.');
                 }
             }
-            min = pin;
-            for (int j = 0; j < 5; j++) {
-                for (int k = 0; k < 9; k++) {
-                    if (board[j][k] == 'o') {
-                        move(board, j, k, pin, 0);
-                    }
-                }
-            }
-            sb.append(min + " " + cnt + "\n");
-            br.readLine();
+            sb.append("\n");
         }
         System.out.println(sb);
     }
 
-    static void move(char[][] board, int i, int j, int pin, int tempCnt) {
-        if (pin <= min) {
-            min = pin;
-            cnt = tempCnt;
-        }
+    static boolean range(int i, int j) {
+        return i >= 0 && i < r && j >= 0 && j < c;
+    }
 
-        for (int k = 0; k < 4; k++) {
-            int ni = i + di[k];
-            int nj = j + dj[k];
-
-            if (canMove(ni, nj) && board[ni][nj] == 'o') {
-                int nni = ni + di[k];
-                int nnj = nj + dj[k];
-                if (canMove(nni, nnj) && board[nni][nnj] == '.') {
-                    board[i][j] = '.';
-                    board[ni][nj] = '.';
-                    board[nni][nnj] = 'o';
-                    for (int l = 0; l < 5; l++) {
-                        for (int m = 0; m < 9; m++) {
-                            if (board[l][m] == 'o') {
-                                move(board, l, m, pin - 1, tempCnt + 1);
-                            }
+    static void down() {
+        for (int k = 0; k < r; k++) {
+            for (int l = 0; l < c; l++) {
+                if (mine[k][l] != '.' && canDown(k + 1, l)) {
+                    int startL = l;
+                    char cur = mine[k][l];
+                    boolean can = true;
+                    while (range(k, ++l) && mine[k][l] == cur) {
+                        if (mine[k + 1][l] != '.') {
+                            can = false;
+                            break;
                         }
                     }
-                    board[i][j] = 'o';
-                    board[ni][nj] = 'o';
-                    board[nni][nnj] = '.';
+                    if (can) {
+                        for (int i = startL; i < l; i++) {
+                            mine[k][i] = '.';
+                            mine[k + 1][i] = cur;
+                        }
+                    }
                 }
             }
         }
     }
 
-    static boolean canMove(int i, int j) {
-        return i >= 0 && i < 5 && j >= 0 && j < 9;
+    static boolean canDown(int i, int j) {
+        return i < r && mine[i][j] == '.';
     }
 }
