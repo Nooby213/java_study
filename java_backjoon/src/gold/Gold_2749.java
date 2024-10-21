@@ -1,7 +1,8 @@
-import java.util.*;
-import java.io.*;
+package gold;
 
-public class Main {
+import java.util.*;
+
+public class Gold_2749 {
     static long mod = 1000000;
 
     public static void main(String[] args) throws Exception {
