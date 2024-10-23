@@ -2,105 +2,165 @@ import java.util.*;
 import java.io.*;
 
 public class Main {
-    static class Edge implements Comparable<Edge> {
-        int nextV;
-        int weight;
-
-        public Edge(int nextV, int weight) {
-            this.nextV = nextV;
-            this.weight = weight;
-        }
-
-        @Override
-        public int compareTo(Edge other) {
-            return Integer.compare(this.weight, other.weight);
-        }
-
-        @Override
-        public String toString() {
-            return nextV + " : " + weight;
-        }
-    }
-
-    static class Node {
-        List<Edge> edges = new ArrayList<>();
-
-        public void addEdge(int v, int w) {
-            edges.add(new Edge(v, w));
-        }
-
-        public void sortEdges() {
-            Collections.sort(edges);
-        }
-
-        @Override
-        public String toString() {
-            StringBuilder sb = new StringBuilder();
-            for (Edge edge : edges) {
-                sb.append(edge.toString()).append("\n");
-            }
-            return sb.toString();
-        }
-    }
-
-    static int v;
-    static int e;
-    static int p;
-    static List<Node> nodes;
+    static int n;
+    static int m;
+    static int min = Integer.MAX_VALUE;
+    static int cctv;
+    static List<int[]> cctvList = new ArrayList<>();
+    static int[][] office;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        v = Integer.parseInt(st.nextToken()); // 정점 개수
-        e = Integer.parseInt(st.nextToken()); // 간선 개수
-        p = Integer.parseInt(st.nextToken()); // 건우 정점
-        nodes = new ArrayList<>();
-        for (int i = 0; i <= v; i++) {
-            nodes.add(new Node());
-        }
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
 
-        for (int i = 0; i < e; i++) {
+        office = new int[n][m];
+        for (int i = 0; i < n; i++) {
             st = new StringTokenizer(br.readLine());
-            int a = Integer.parseInt(st.nextToken()); // 정점1
-            int b = Integer.parseInt(st.nextToken()); // 정점2
-            int c = Integer.parseInt(st.nextToken()); // 거리
-            nodes.get(a).addEdge(b, c);
-            nodes.get(b).addEdge(a, c);
+            for (int j = 0; j < m; j++) {
+                office[i][j] = Integer.parseInt(st.nextToken());
+                if (office[i][j] != 0 && office[i][j] != 6) {
+                    cctvList.add(new int[]{i, j});
+                    cctv++;
+                }
+
+            }
         }
 
-//        항상 1번 정점에서 P번과 V번 정점으로 갈 수 있는 경로가 존재한다.
-        int toV = saveMinJun(1, v);
-        int toP = saveMinJun(1, p);
-        int pToV = saveMinJun(p, v);
-        if (toV >= toP + pToV) {
-            System.out.println("SAVE HIM");
-        } else {
-            System.out.println("GOOD BYE");
-        }
+        nextCctv(0);
+//        System.out.println("OFFICE");
+//        for (int i = 0; i < n; i++) {
+//            System.out.println(Arrays.toString(office[i]));
+//        }
+        System.out.println(min);
     }
 
-    static int saveMinJun(int start, int end) {
-        PriorityQueue<Edge> pq = new PriorityQueue<>();
-        int[] distance = new int[v + 1];
-        Arrays.fill(distance, Integer.MAX_VALUE);
-        distance[start] = 0;
-        pq.add(new Edge(start, 0));
+    static List<int[]> detect(int i, int j, int d) {
+        List<int[]> visited = new ArrayList<>();
+        // 상
+        if (d == 0) {
+            for (int k = i - 1; k >= 0; k--) {
+                if (office[k][j] == 0) {
+                    office[k][j] = -1;
+                    visited.add(new int[]{k, j});
+                } else if (office[k][j] == 6) {
+                    break;
+                }
+            }
 
-        while (!pq.isEmpty()) {
-            Edge cur = pq.poll();
-            int curNode = cur.nextV;
-            int curWeight = cur.weight;
-            if (curWeight > distance[curNode]) continue;
+        }
+        // 하
+        else if (d == 1) {
+            for (int k = i + 1; k < n; k++) {
+                if (office[k][j] == 0) {
+                    office[k][j] = -1;
+                    visited.add(new int[]{k, j});
+                } else if (office[k][j] == 6) {
+                    break;
+                }
+            }
 
-            for (Edge edge : nodes.get(curNode).edges) {
-                int nextNode = edge.nextV;
-                int nextWeight = curWeight + edge.weight;
-                if (nextWeight < distance[nextNode]) {
-                    distance[nextNode] = nextWeight;
-                    pq.add(new Edge(nextNode, nextWeight));
+        }
+        // 좌
+        else if (d == 2) {
+            for (int k = j - 1; k >= 0; k--) {
+                if (office[i][k] == 0) {
+                    office[i][k] = -1;
+                    visited.add(new int[]{i, k});
+                } else if (office[i][k] == 6) {
+                    break;
                 }
             }
         }
-        return distance[end];
+        // 우
+        else {
+            for (int k = j + 1; k < m; k++) {
+                if (office[i][k] == 0) {
+                    office[i][k] = -1;
+                    visited.add(new int[]{i, k});
+                } else if (office[i][k] == 6) {
+                    break;
+                }
+            }
+        }
+        return visited;
+    }
+
+    static void miss(List<int[]> visited) {
+        for (int[] cur : visited) {
+            office[cur[0]][cur[1]] = 0;
+        }
+    }
+
+    static void nextCctv(int cctvCnt) {
+        if (cctvCnt == cctv) {
+            count();
+//            for (int i = 0; i < n; i++) {
+//                System.out.println(Arrays.toString(office[i]));
+//            }
+//            System.out.println();
+            return;
+        }
+
+        int[] cur = cctvList.get(cctvCnt);
+        int type = office[cur[0]][cur[1]];
+        int curI = cur[0];
+        int curJ = cur[1];
+        if (type == 1) {
+            for (int i = 0; i < 4; i++) {
+                List<int[]> detect = detect(curI, curJ, i);
+                nextCctv(cctvCnt + 1);
+                miss(detect);
+            }
+        } else if (type == 2) {
+            for (int i = 0; i < 3; i += 2) {
+                List<int[]> detect = detect(curI, curJ, i);
+                detect.addAll(detect(curI, curJ, i + 1));
+                nextCctv(cctvCnt + 1);
+                miss(detect);
+            }
+        } else if (type == 3) {
+            for (int i = 0; i < 2; i++) {
+                for (int j = 2; j <= 3; j++) {
+                    List<int[]> detect = detect(curI, curJ, i);
+                    detect.addAll(detect(curI, curJ, j));
+                    nextCctv(cctvCnt + 1);
+                    miss(detect);
+                }
+            }
+        } else if (type == 4) {
+            for (int i = 0; i < 4; i++) {
+                List<int[]> detect = detect(curI, curJ, i);
+                detect.addAll(detect(curI, curJ, (i + 1) % 4));
+                detect.addAll(detect(curI, curJ, (i + 2) % 4));
+                nextCctv(cctvCnt + 1);
+                miss(detect);
+            }
+        } else if (type == 5) {
+            for (int i = 0; i < 4; i++) {
+                detect(curI, curJ, i);
+            }
+            nextCctv(cctvCnt + 1);
+        }
+    }
+
+    static void count() {
+        int cnt = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (office[i][j] == 0) {
+                    cnt++;
+                }
+            }
+        }
+//        if (min > cnt) {
+//            System.out.println("cnt = " + cnt);
+//            for (int i = 0; i < n; i++) {
+//                System.out.println(Arrays.toString(office[i]));
+//            }
+//            System.out.println();
+//        }
+        min = Math.min(min, cnt);
     }
 }
