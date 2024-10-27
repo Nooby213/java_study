@@ -1,66 +1,61 @@
-import java.util.*;
-import java.io.*;
+package gold;
 
-public class Test {
+import java.io.*;
+import java.util.*;
+
+public class Gold_17420 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
         int n = Integer.parseInt(br.readLine());
         StringTokenizer st1 = new StringTokenizer(br.readLine());
         StringTokenizer st2 = new StringTokenizer(br.readLine());
+
         List<Gifticon> gifticons = new ArrayList<>();
+
         for (int i = 0; i < n; i++) {
             long expire = Long.parseLong(st1.nextToken());
             long useDate = Long.parseLong(st2.nextToken());
             gifticons.add(new Gifticon(expire, useDate));
         }
+
         gifticons.sort(Comparator.comparingLong((Gifticon o) -> o.useDate).thenComparingLong(o -> o.expire));
 
-        Gifticon first = gifticons.get(0);
-        long min = 0;
-        if (first.useDate > first.expire) {
-            long cnt = (long) Math.ceil((first.useDate - first.expire) / 30.0);
-            first.expire += 30 * cnt;
-        }
-        long maxExpire = first.expire;
-        long preUseDate = first.useDate;
+        long preUseDate = gifticons.get(0).useDate;
+        long maxExpire = 0;
+        long cnt = 0;
 
-        for (int i = 1; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             Gifticon cur = gifticons.get(i);
 
-            long cnt = 0;
-
-            if (cur.expire < cur.useDate) {
-                cnt = (long) Math.ceil((cur.useDate - cur.expire) / 30.0);
-                cur.expire += 30 * cnt;
-                min += cnt;
-            }
-
             if (preUseDate > cur.expire) {
-                if (preUseDate != cur.useDate) {
-                    cnt = (long) Math.ceil((maxExpire - cur.expire) / 30.0);
-                    cur.expire += 30 * cnt;
-                    min += cnt;
-                    preUseDate = Math.max(maxExpire, cur.expire);
-                } else {
-                    cnt = (long) Math.ceil((preUseDate - cur.expire) / 30.0);
-                    cur.expire += 30 * cnt;
-                    min += cnt;
-                }
+                preUseDate = Math.max(preUseDate, cur.useDate);
+                // 30으로 나오면 정수가 나와서 가까운 정수하게되면 소수점 이하 다버림
+                // 30.0으로 하면 실수 나와서 가까운 정수 하면
+                long tempCnt = (long) Math.ceil((preUseDate - cur.expire) / 30.0);
+                // 딱 맞아 떨어지면 틀림
+//                long tempCnt = (preUseDate - cur.expire) / 30.0 + 1;
+                cur.expire += tempCnt * 30;
+                cnt += tempCnt;
             }
 
             maxExpire = Math.max(maxExpire, cur.expire);
 
+            if (1 + i < n && cur.useDate != gifticons.get(i + 1).useDate) {
+                preUseDate = maxExpire;
+            }
         }
-
-        System.out.println(min);
+        System.out.println(cnt);
     }
 
     static class Gifticon {
         long expire;
         long useDate;
+
         public Gifticon(long expire, long useDate) {
             this.expire = expire;
             this.useDate = useDate;
         }
     }
 }
+
