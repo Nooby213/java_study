@@ -1,7 +1,9 @@
+package gold;
+
 import java.io.*;
 import java.util.*;
 
-public class Test {
+public class Gold_2879 {
     static int n;
 
     public static void main(String[] args) throws IOException {
@@ -18,17 +20,19 @@ public class Test {
             int toBe = Integer.parseInt(st2.nextToken());
 
             int curDiff = toBe - tap;
+            int absPreDiff = Math.abs(preDiff);
+            int absCurDiff = Math.abs(curDiff);
 
-            if (preDiff * curDiff < 0) {
-                cnt += Math.abs(preDiff);
-            } else if (Math.abs(preDiff) >= Math.abs(curDiff)) {
-                cnt += Math.abs(preDiff) - Math.abs(curDiff);
+            if (preDiff * curDiff >= 0) {
+                cnt += absCurDiff > absPreDiff ? (absCurDiff - absPreDiff) : 0;
+            } else {
+                cnt += absCurDiff;
             }
 
             preDiff = curDiff;
         }
-
-        cnt += Math.abs(preDiff);
         System.out.println(cnt);
     }
+
+
 }

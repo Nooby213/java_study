@@ -2,54 +2,56 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    static int n;
+    static int m;
+    static int cnt;
+    static List<int[]> virus = new ArrayList<>();
+    static int[][] room;
+    static int size;
+    static int[] di = {-1, 1, 0, 0};
+    static int[] dj = {0, 0, -1, 1};
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int n = Integer.parseInt(br.readLine());
-        boolean[] notPrimes = new boolean[n + 1];
-        notPrimes[0] = true;
-        notPrimes[1] = true;
-        for (int i = 2; i <= Math.sqrt(n); i++) {
-            if (!notPrimes[i]) {
-                for (int j = i * i; j <= n; j += i) {
-                    notPrimes[j] = true;
+        StringTokenizer st = new StringTokenizer(br.readLine());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        cnt = 0;
+        room = new int[n][m];
+        for (int i = 0; i < n; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < m; j++) {
+                room[i][j] = Integer.parseInt(st.nextToken());
+                if (room[i][j] == 2) {
+                    virus.add(new int[]{i, j});
+                    size++;
                 }
             }
         }
-        List<Integer> primes = new ArrayList<>();
-        int size = 0;
-        for (int i = 0; i <= n; i++) {
-            if (!notPrimes[i]) {
-                primes.add(i);
-                size++;
+    }
+    static void build(int )
+    static void spread() {
+        boolean[][] visited = new boolean[n][m];
+        int cnt = size;
+        Queue<int[]> q = new LinkedList<>();
+        for (int i = 0; i < size; i++) {
+            q.add(virus.get(i));
+        }
+        while (!q.isEmpty()) {
+            int[] cur = q.poll();
+            for (int i = 0; i < 4; i++) {
+                int ni = cur[0] + di[i];
+                int nj = cur[1] + dj[i];
+                if (range(ni, nj) && !visited[ni][nj] && room[ni][nj] == 0) {
+                    visited[ni][nj] = true;
+                    q.add(new int[]{ni, nj});
+                    cnt++;
+                }
             }
         }
-        int cnt = 0;
+    }
 
-//        for (int i = size - 1; i >= 0; i--) {
-//            int sum = 0;
-//            for (int j = i; j >= 0; j--) {
-//                sum += primes.get(j);
-//                if (sum > n) {
-//                    break;
-//                } else if (sum == n) {
-//                    cnt++;
-//                }
-//            }
-//        }
-
-        int s = 0;
-        int e = 0;
-        int sum = 0;
-        while (e < size) {
-            if (sum < n) sum += primes.get(e++);
-
-            if (sum > n) sum -= primes.get(s++);
-
-            if (sum == n) {
-                sum -= primes.get(s++);
-                cnt++;
-            }
-        }
-        System.out.println(cnt);
+    static boolean range(int i, int j) {
+        return i >= 0 && i < n && j >= 0 && j < m;
     }
 }
