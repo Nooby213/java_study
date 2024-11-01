@@ -1,7 +1,9 @@
+package gold;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Gold_2631 {
     static List<Integer> list;
     static int size;
     public static void main(String[] args) throws IOException {
@@ -36,3 +38,4 @@ public class Main {
         list.set(e, cur);
     }
 }
+
