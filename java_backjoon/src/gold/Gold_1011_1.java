@@ -1,7 +1,9 @@
+package gold;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Gold_1011_1 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int tc = Integer.parseInt(br.readLine());
@@ -12,19 +14,19 @@ public class Main {
             int y = Integer.parseInt(st.nextToken());
             int dis = y - x;
 
-            System.out.println(minMoves(dis));
-        }
-    }
-
-    static int minMoves(int dis) {
-        int max = (int) Math.sqrt(dis);
-
-        if (max * max == dis) {
-            return 2 * max - 1;
-        } else if (max * max < dis && dis <= max * max + max) {
-            return 2 * max;
-        } else {
-            return 2 * max + 1;
+            int cur = 0;
+            int vel = 1;
+            int t = 0;
+            while (cur < dis) {
+                if (t % 2 == 0) {
+                    cur += vel;
+                } else {
+                    cur += vel;
+                    vel += 1;
+                }
+                t++;
+            }
+            System.out.println(t);
         }
     }
 }

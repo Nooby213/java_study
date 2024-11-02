@@ -1,7 +1,9 @@
+package gold;
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
+public class Gold_1011 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int tc = Integer.parseInt(br.readLine());
