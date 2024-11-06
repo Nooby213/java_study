@@ -1,8 +1,10 @@
+package Silver;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class Main {
+public class Silver_1802 {
     public static boolean isFoldable(String paper) {
         // 길이가 1이면 항상 접을 수 있음
         if (paper.length() <= 1) return true;
