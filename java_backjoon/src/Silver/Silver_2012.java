@@ -1,7 +1,8 @@
-import java.util.*;
+package Silver;
+
 import java.io.*;
 
-public class Test {
+public class Silver_2012 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
