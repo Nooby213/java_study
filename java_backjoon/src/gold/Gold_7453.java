@@ -1,7 +1,8 @@
+package gold;
 import java.util.*;
 import java.io.*;
 
-public class Main {
+public class Gold_7453 {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         int n = Integer.parseInt(br.readLine());
@@ -12,11 +13,13 @@ public class Main {
                 abcd[j][i] = Integer.parseInt(st.nextToken());
             }
         }
-        int[] ab = new int[n * n];
-        int[] cd = new int[n * n];
+
         for (int i = 0; i < 4; i++) {
             Arrays.sort(abcd[i]);
         }
+
+        int[] ab = new int[n * n];
+        int[] cd = new int[n * n];
 
         int idx = 0;
         for (int i = 0; i < n; i++) {
